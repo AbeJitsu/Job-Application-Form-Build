@@ -1,20 +1,103 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Real-time validation
+    function validateField(field) {
+        const wrapper = field.closest('.input-wrapper');
+        if (!wrapper) return;
+
+        const validationIcon = wrapper.querySelector('.validation-icon');
+        const validationMessage = wrapper.querySelector('.validation-message');
+        const fieldType = field.type;
+        const fieldValue = field.value.trim();
+
+        let isValid = true;
+        let message = '';
+
+        // Check if field is required and empty
+        if (field.hasAttribute('required') && fieldValue === '') {
+            isValid = false;
+            message = 'This field is required';
+        }
+        // Email validation
+        else if (fieldType === 'email' && fieldValue !== '') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(fieldValue)) {
+                isValid = false;
+                message = 'Please enter a valid email address';
+            }
+        }
+        // Name validation (at least 2 characters)
+        else if (field.id === 'name' && fieldValue !== '') {
+            if (fieldValue.length < 2) {
+                isValid = false;
+                message = 'Name must be at least 2 characters long';
+            }
+        }
+        // Message validation (at least 10 characters)
+        else if (field.id === 'message' && fieldValue !== '') {
+            if (fieldValue.length < 10) {
+                isValid = false;
+                message = 'Please provide more details (at least 10 characters)';
+            }
+        }
+
+        // Update validation UI
+        if (fieldValue === '') {
+            // Empty field - neutral state
+            validationIcon.className = 'validation-icon';
+            validationMessage.className = 'validation-message';
+            validationMessage.textContent = '';
+        } else if (isValid) {
+            // Valid field
+            validationIcon.className = 'validation-icon valid';
+            validationIcon.textContent = '✓';
+            validationMessage.className = 'validation-message';
+            validationMessage.textContent = '';
+        } else {
+            // Invalid field
+            validationIcon.className = 'validation-icon invalid';
+            validationIcon.textContent = '!';
+            validationMessage.className = 'validation-message show';
+            validationMessage.textContent = message;
+        }
+    }
+
+    // Add validation to all form fields
+    const formFields = document.querySelectorAll('input, textarea');
+    formFields.forEach(field => {
+        // Validate on input (real-time)
+        field.addEventListener('input', () => validateField(field));
+
+        // Validate on blur (when leaving field)
+        field.addEventListener('blur', () => validateField(field));
+    });
+
     // Form submission handling
     const form = document.querySelector('form');
     const confirmationMessage = document.getElementById('confirmationMessage');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = submitBtn.querySelector('.btn-text');
+    const btnSpinner = submitBtn.querySelector('.btn-spinner');
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        // Hide form and show confirmation
-        form.style.opacity = '0';
+        // Show loading state
+        submitBtn.disabled = true;
+        btnText.style.display = 'none';
+        btnSpinner.style.display = 'block';
+
+        // Simulate processing time (2 seconds)
         setTimeout(() => {
-            form.style.display = 'none';
-            confirmationMessage.style.display = 'block';
+            // Hide form and show confirmation
+            form.style.opacity = '0';
             setTimeout(() => {
-                confirmationMessage.style.opacity = '1';
-            }, 10);
-        }, 300);
+                form.style.display = 'none';
+                confirmationMessage.style.display = 'block';
+                setTimeout(() => {
+                    confirmationMessage.style.opacity = '1';
+                }, 10);
+            }, 300);
+        }, 2000);
     });
 
     // Custom dropdown functionality
@@ -53,12 +136,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function openDropdown() {
         customDropdown.classList.add('open');
-        dropdownIcon.style.transform = 'rotate(180deg)';
     }
 
     function closeDropdown() {
         customDropdown.classList.remove('open');
-        dropdownIcon.style.transform = 'rotate(0deg)';
     }
 
     // Handle dropdown click

@@ -5,19 +5,20 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%);
     color: #2d3436;
     line-height: 1.6;
     padding: 20px;
     min-height: 100vh;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
 
 .container {
     max-width: 600px;
     margin: 0 auto;
     background: linear-gradient(145deg, #ffffff, #f8f9fa);
-    padding: 40px;
+    padding: 20px;
     border-radius: 16px;
     box-shadow:
         0 10px 30px rgba(45, 52, 54, 0.15),
@@ -39,13 +40,13 @@ body {
 
 h1 {
     color: #2c3e50;
-    margin-bottom: 35px;
+    margin-bottom: 15px;
     text-align: center;
     font-size: 2.2rem;
     font-weight: 700;
     letter-spacing: -0.5px;
     position: relative;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 h1::after {
@@ -63,28 +64,74 @@ h1::after {
 form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
 
 label {
     font-weight: 600;
     color: #2c3e50;
-    margin-bottom: 8px;
-    display: block;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     position: relative;
-    padding-left: 12px;
 }
 
-label::before {
-    content: '';
+.field-icon {
+    color: #74b9ff;
+    flex-shrink: 0;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.validation-icon {
     position: absolute;
-    left: 0;
     top: 50%;
+    right: 16px;
     transform: translateY(-50%);
-    width: 4px;
-    height: 16px;
-    background: linear-gradient(135deg, #74b9ff, #2c3e50);
-    border-radius: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.validation-icon.valid {
+    background: #00b894;
+    color: white;
+    opacity: 1;
+}
+
+.validation-icon.invalid {
+    background: #d63031;
+    color: white;
+    opacity: 1;
+}
+
+.validation-message {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    font-size: 14px;
+    color: #d63031;
+    margin-top: 4px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.validation-message.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 input:first-of-type {
@@ -92,7 +139,8 @@ input:first-of-type {
 }
 
 input, select, textarea {
-    padding: 14px 16px;
+    width: 100%;
+    padding: 14px 50px 14px 16px;
     border: 2px solid #b2bec3;
     border-radius: 8px;
     font-size: 16px;
@@ -101,6 +149,14 @@ input, select, textarea {
     transition: all 0.3s ease;
     box-shadow: inset 0 2px 4px rgba(99, 110, 114, 0.06);
 }
+
+/* Unified form control widths */
+.input-wrapper, .custom-dropdown, .radio-group {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 input:focus, textarea:focus {
     outline: none;
@@ -138,11 +194,11 @@ select option {
 /* Custom Dropdown Styles */
 .custom-dropdown {
     position: relative;
-    width: 100%;
+    margin-bottom: 10px;
 }
 
 .dropdown-selected {
-    padding: 14px 16px;
+    padding: 14px 50px 14px 16px;
     border: 2px solid #b2bec3;
     border-radius: 8px;
     font-size: 16px;
@@ -151,9 +207,7 @@ select option {
     transition: all 0.3s ease;
     box-shadow: inset 0 2px 4px rgba(99, 110, 114, 0.06);
     cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: relative;
     outline: none;
 }
 
@@ -171,9 +225,18 @@ select option {
 }
 
 .dropdown-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
     transition: transform 0.3s ease;
     color: #636e72;
     font-size: 14px;
+    pointer-events: none;
+}
+
+.custom-dropdown.open .dropdown-icon {
+    transform: translateY(-50%) rotate(180deg);
 }
 
 .dropdown-options {
@@ -242,10 +305,11 @@ textarea {
 .radio-group {
     border: 2px solid #b2bec3;
     border-radius: 12px;
-    padding: 20px;
+    padding: 15px;
     background: linear-gradient(145deg, #fdfdfd, #f8f9fa);
     box-shadow: inset 0 2px 4px rgba(99, 110, 114, 0.06);
     position: relative;
+    margin-bottom: 10px;
 }
 
 .radio-group legend {
@@ -283,7 +347,6 @@ textarea {
 .radio-group input[type="radio"]:checked {
     border-color: #2c3e50;
     background-color: #74b9ff;
-    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.2);
 }
 
 .radio-group input[type="radio"]:checked + label {
@@ -306,18 +369,41 @@ button {
     background: linear-gradient(135deg, #2c3e50, #34495e);
     color: white;
     border: none;
-    padding: 16px 32px;
+    padding: 14px 28px;
     border-radius: 10px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 15px;
+    margin-top: 8px;
     box-shadow:
         0 4px 12px rgba(44, 62, 80, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn-spinner {
+    display: none;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 button::before {
@@ -440,7 +526,7 @@ form {
     /* Custom dropdown mobile styles */
     .dropdown-selected {
         font-size: 20px;
-        padding: 16px 18px;
+        padding: 16px 50px 16px 18px;
         min-height: 54px;
     }
 
@@ -452,6 +538,13 @@ form {
 
     .dropdown-icon {
         font-size: 16px;
+    }
+
+    textarea {
+        min-height: 120px;
+        font-size: 18px;
+        padding: 18px;
+        line-height: 1.6;
     }
 
     .confirmation-icon {
