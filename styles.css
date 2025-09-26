@@ -68,18 +68,23 @@ form {
 }
 
 /* Form load animations */
-label, .input-wrapper, .custom-dropdown, .radio-group, button {
+label, .input-wrapper, .custom-dropdown, .radio-group {
     opacity: 0;
     transform: translateY(20px);
     animation: slideInUp 0.6s ease forwards;
 }
 
-label:nth-child(1), .input-wrapper:nth-child(2) { animation-delay: 0.1s; }
-label:nth-child(3), .input-wrapper:nth-child(4) { animation-delay: 0.2s; }
-label:nth-child(5), .custom-dropdown:nth-child(6) { animation-delay: 0.3s; }
-.radio-group:nth-child(7) { animation-delay: 0.4s; }
-label:nth-child(8), .input-wrapper:nth-child(9) { animation-delay: 0.5s; }
-button { animation-delay: 0.6s; }
+button {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Corrected animation delays */
+form > label:nth-of-type(1), form > .input-wrapper:nth-of-type(1) { animation-delay: 0.1s; }
+form > label:nth-of-type(2), form > .input-wrapper:nth-of-type(2) { animation-delay: 0.2s; }
+form > label:nth-of-type(3), form > .custom-dropdown { animation-delay: 0.3s; }
+form > .radio-group { animation-delay: 0.4s; }
+form > label:nth-of-type(4), form > .input-wrapper:nth-of-type(3) { animation-delay: 0.5s; }
 
 @keyframes slideInUp {
     to {
@@ -434,7 +439,7 @@ button {
     justify-content: center;
     gap: 8px;
     min-height: 52px;
-    animation: subtlePulse 4s ease-in-out infinite;
+    animation: slideInUp 0.6s ease 0.6s forwards, subtlePulse 4s ease-in-out 1.2s infinite;
 }
 
 @keyframes subtlePulse {
