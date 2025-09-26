@@ -305,6 +305,10 @@ select option {
     z-index: 1000;
 }
 
+.custom-dropdown.open {
+    z-index: 1001;
+}
+
 .custom-dropdown.open .dropdown-options {
     max-height: 300px;
     border: 2px solid #2c3e50;
