@@ -128,6 +128,112 @@ select {
     cursor: pointer;
 }
 
+select option {
+    font-size: 16px;
+    padding: 12px;
+    line-height: 1.6;
+    font-family: inherit;
+}
+
+/* Custom Dropdown Styles */
+.custom-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-selected {
+    padding: 14px 16px;
+    border: 2px solid #b2bec3;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    background: linear-gradient(145deg, #ffffff, #fdfdfd);
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 4px rgba(99, 110, 114, 0.06);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    outline: none;
+}
+
+.dropdown-selected:focus {
+    border-color: #2c3e50;
+    box-shadow:
+        inset 0 2px 4px rgba(99, 110, 114, 0.06),
+        0 0 0 3px rgba(44, 62, 80, 0.1),
+        0 2px 8px rgba(44, 62, 80, 0.15);
+    transform: translateY(-1px);
+}
+
+.dropdown-selected.placeholder {
+    color: #636e72;
+}
+
+.dropdown-icon {
+    transition: transform 0.3s ease;
+    color: #636e72;
+    font-size: 14px;
+}
+
+.dropdown-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(44, 62, 80, 0.15);
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.custom-dropdown.open .dropdown-options {
+    max-height: 300px;
+    border: 2px solid #2c3e50;
+    border-top: 1px solid #dfe6e9;
+}
+
+.custom-dropdown.open .dropdown-selected {
+    border-color: #2c3e50;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.dropdown-option {
+    padding: 16px 20px;
+    font-size: 16px;
+    color: #2d3436;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #f1f2f6;
+}
+
+.dropdown-option:last-child {
+    border-bottom: none;
+}
+
+.dropdown-option:hover {
+    background: linear-gradient(135deg, #74b9ff, #0984e3);
+    color: white;
+    transform: translateX(4px);
+}
+
+.dropdown-option.selected {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    font-weight: 600;
+}
+
+.dropdown-option:focus {
+    outline: none;
+    background: linear-gradient(135deg, #74b9ff, #0984e3);
+    color: white;
+}
+
 textarea {
     resize: vertical;
     min-height: 100px;
@@ -244,6 +350,65 @@ button:active {
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+.confirmation-message {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.confirmation-content {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.confirmation-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #00b894, #00a085);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: white;
+    margin: 0 auto 30px;
+    box-shadow: 0 10px 30px rgba(0, 184, 148, 0.3);
+    animation: confirmationPulse 2s ease-in-out infinite;
+}
+
+@keyframes confirmationPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 10px 30px rgba(0, 184, 148, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 15px 40px rgba(0, 184, 148, 0.4);
+    }
+}
+
+.confirmation-message h2 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -0.3px;
+}
+
+.confirmation-message p {
+    color: #636e72;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+form {
+    transition: opacity 0.3s ease;
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 20px;
@@ -252,5 +417,55 @@ button:active {
 
     h1 {
         font-size: 1.5rem;
+    }
+
+    input, select, textarea {
+        font-size: 18px;
+        padding: 16px 18px;
+        min-height: 50px;
+    }
+
+    select {
+        font-size: 20px;
+        padding: 16px 18px;
+        min-height: 54px;
+    }
+
+    select option {
+        font-size: 20px;
+        padding: 16px;
+        line-height: 1.8;
+    }
+
+    /* Custom dropdown mobile styles */
+    .dropdown-selected {
+        font-size: 20px;
+        padding: 16px 18px;
+        min-height: 54px;
+    }
+
+    .dropdown-option {
+        padding: 20px 24px;
+        font-size: 20px;
+        line-height: 1.6;
+    }
+
+    .dropdown-icon {
+        font-size: 16px;
+    }
+
+    .confirmation-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .confirmation-message h2 {
+        font-size: 1.5rem;
+    }
+
+    .confirmation-message p {
+        font-size: 1rem;
     }
 }

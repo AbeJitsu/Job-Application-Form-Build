@@ -18,7 +18,7 @@
             <input type="email" id="email" name="email" required>
 
             <label for="position">Position</label>
-            <select id="position" name="position" required>
+            <select id="position" name="position" required style="display: none;">
                 <option value="">Select a position</option>
                 <option value="frontend">Frontend Developer</option>
                 <option value="backend">Backend Developer</option>
@@ -26,6 +26,16 @@
                 <option value="designer">UI/UX Designer</option>
                 <option value="manager">Project Manager</option>
             </select>
+
+            <div class="custom-dropdown" id="customDropdown">
+                <div class="dropdown-selected" id="dropdownSelected" tabindex="0">
+                    <span class="selected-text">Select a position</span>
+                    <span class="dropdown-icon">▼</span>
+                </div>
+                <div class="dropdown-options" id="dropdownOptions">
+                    <!-- Options will be populated by JavaScript -->
+                </div>
+            </div>
 
             <fieldset class="radio-group">
                 <legend>Availability</legend>
@@ -44,6 +54,16 @@
 
             <button type="submit">Submit Application</button>
         </form>
+
+        <div class="confirmation-message" id="confirmationMessage">
+            <div class="confirmation-content">
+                <div class="confirmation-icon">✓</div>
+                <h2>Application Submitted Successfully!</h2>
+                <p>Thank you for your interest in joining our team. We'll carefully review your application and get back to you soon. We're excited about the possibility of working together and finding the perfect fit for both of us.</p>
+            </div>
+        </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
